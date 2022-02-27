@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="DigiKalaMobileApp.Pages.Views.ProfileView"
+             NavigationPage.HasNavigationBar="False"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}">
+    <!--Start Binding Context-->
+    <ContentView.BindingContext>
+        <vm:ProfileViewModel x:Name="ViewModel" />
+    </ContentView.BindingContext>
+    <!--End Binding Context-->
+
+    <!--Start Page Content-->
+    <ContentView.Content>
+        <ScrollView HorizontalScrollBarVisibility="Never">
+            <Grid RowSpacing="20"
+                  Padding="10, 15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!--Start Top Icons-->
+                <Grid Grid.Row="0">
+                    <!--Settings-->
+                    <Path Data="{StaticResource SettingsIcon}"
+                          Fill="{StaticResource PrimaryTextColor}"
+                          WidthRequest="20"
+                          HeightRequest="20"
+                          Aspect="Uniform"
+                          HorizontalOptions="StartAndExpand">
+                        <Path.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenSettingsPageCommand}" />
+                        </Path.GestureRecognizers>
+                    </Path>
+
+                    <!--Sign Out-->
+                    <Path Data="{StaticResource SignOutIcon}"
+                          Fill="{StaticResource PrimaryTextColor}"
+                          WidthRequest="20"
+                          HeightRequest="20"
+                          Aspect="Uniform"
+                          HorizontalOptions="EndAndExpand" />
+                </Grid>
+                <!--End Top Icons-->
+
+                <!--Start Profile Image-->
+                <pv:PancakeView Grid.Row="1"
+                                HorizontalOptions="CenterAndExpand"
+                                WidthRequest="100"
+                                HeightRequest="100"
+                                CornerRadius="50"
+                                IsClippedToBounds="True">
+                    <!--Shadow-->
+                    <pv:PancakeView.Shadow>
+                        <pv:DropShadow BlurRadius="10"
+                                       Offset="0, 3"
+                                       Color="{StaticResource BlackColor}"
+                                       Opacity="0.3" />
+                    </pv:PancakeView.Shadow>
+
+                    <Grid>
+                        <Image Source="profile.jpg"
+                               Aspect="Fill"
+                               VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </pv:PancakeView>
+                <!--End Profile Image-->
+
+                <!--Start Profile Short Description-->
+                <StackLayout Grid.Row="2"
+                             Spacing="3">
+                    <!--Name-->
+                    <Label Text="عادل بخشی"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontFamily="VazirBoldFD"
+                           FontSize="14"
+                           FontAttributes="Bold" />
+
+                    <!--Phone Number-->
+                    <Label Text="09156699886"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource PlaceholderColor}"
+                           FontFamily="VazirBoldFD"
+                           FontSize="12"
+                           FontAttributes="Bold" />
+                </StackLayout>
+                <!--Start Profile Short Description-->
+
+                <!--Start Profile Navigation List-->
+                <StackLayout Grid.Row="3"
+                             Spacing="0">
+                    <!--My Orders-->
+                    <Grid HeightRequest="40"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Indicator-->
+                        <BoxView Grid.Column="0"
+                                 WidthRequest="1"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="StartAndExpand"
+                                 BackgroundColor="{StaticResource PrimaryColor}" />
+
+                        <!--Icon-->
+                        <Path Grid.Column="0"
+                              Data="{StaticResource OrdersIcon}"
+                              Fill="{StaticResource PrimaryTextColor}"
+                              Aspect="Uniform"
+                              WidthRequest="20"
+                              HeightRequest="20"
+                              Margin="15, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+
+                        <!--Title-->
+                        <Label Grid.Column="1"
+                               Text="سفارشات من"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               FontFamily="VazirFD"
+                               FontSize="12"
+                               VerticalOptions="CenterAndExpand" />
+
+                        <!--Arrow Icon-->
+                        <Path Grid.Column="2"
+                              Data="{StaticResource ArrowLeftIcon}"
+                              Fill="{StaticResource PlaceholderColor}"
+                              Aspect="Uniform"
+                              WidthRequest="12"
+                              HeightRequest="12"
+                              Margin="7, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+                    </Grid>
+
+                    <!--Lists-->
+                    <Grid HeightRequest="40"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Indicator-->
+                        <BoxView Grid.Column="0"
+                                 WidthRequest="1"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="StartAndExpand"
+                                 BackgroundColor="{StaticResource PrimaryColor}" />
+
+                        <!--Icon-->
+                        <Path Grid.Column="0"
+                              Data="{StaticResource HeartIcon}"
+                              Fill="{StaticResource PrimaryTextColor}"
+                              Aspect="Uniform"
+                              WidthRequest="20"
+                              HeightRequest="20"
+                              Margin="15, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+
+                        <!--Title-->
+                        <Label Grid.Column="1"
+                               Text="لیست ها"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               FontFamily="VazirFD"
+                               FontSize="12"
+                               VerticalOptions="CenterAndExpand" />
+
+                        <!--Arrow Icon-->
+                        <Path Grid.Column="2"
+                              Data="{StaticResource ArrowLeftIcon}"
+                              Fill="{StaticResource PlaceholderColor}"
+                              Aspect="Uniform"
+                              WidthRequest="12"
+                              HeightRequest="12"
+                              Margin="7, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenListsPageCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                    <!--Addresses-->
+                    <Grid HeightRequest="40"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Indicator-->
+                        <BoxView Grid.Column="0"
+                                 WidthRequest="1"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="StartAndExpand"
+                                 BackgroundColor="{StaticResource PrimaryColor}" />
+
+                        <!--Icon-->
+                        <Path Grid.Column="0"
+                              Data="{StaticResource AddressesIcon}"
+                              Fill="{StaticResource PrimaryTextColor}"
+                              Aspect="Uniform"
+                              WidthRequest="20"
+                              HeightRequest="20"
+                              Margin="15, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+
+                        <!--Title-->
+                        <Label Grid.Column="1"
+                               Text="آدرس ها"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               FontFamily="VazirFD"
+                               FontSize="12"
+                               VerticalOptions="CenterAndExpand" />
+
+                        <!--Arrow Icon-->
+                        <Path Grid.Column="2"
+                              Data="{StaticResource ArrowLeftIcon}"
+                              Fill="{StaticResource PlaceholderColor}"
+                              Aspect="Uniform"
+                              WidthRequest="12"
+                              HeightRequest="12"
+                              Margin="7, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenAddressesPageCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                    <!--Profile Info-->
+                    <Grid HeightRequest="40"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Indicator-->
+                        <BoxView Grid.Column="0"
+                                 WidthRequest="1"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="StartAndExpand"
+                                 BackgroundColor="{StaticResource PrimaryColor}" />
+
+                        <!--Icon-->
+                        <Path Grid.Column="0"
+                              Data="{StaticResource ProfileInfoIcon}"
+                              Fill="{StaticResource PrimaryTextColor}"
+                              Aspect="Uniform"
+                              WidthRequest="20"
+                              HeightRequest="20"
+                              Margin="15, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+
+                        <!--Title-->
+                        <Label Grid.Column="1"
+                               Text="اطلاعات حساب کاربری"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               FontFamily="VazirFD"
+                               FontSize="12"
+                               VerticalOptions="CenterAndExpand" />
+
+                        <!--Arrow Icon-->
+                        <Path Grid.Column="2"
+                              Data="{StaticResource ArrowLeftIcon}"
+                              Fill="{StaticResource PlaceholderColor}"
+                              Aspect="Uniform"
+                              WidthRequest="12"
+                              HeightRequest="12"
+                              Margin="7, 0, 10, 0"
+                              VerticalOptions="CenterAndExpand" />
+                    </Grid>
+                </StackLayout>
+                <!--End Profile Navigation List-->
+            </Grid>
+        </ScrollView>
+    </ContentView.Content>
+    <!--End Page Content-->
+</ContentView>

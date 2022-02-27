@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             xmlns:views="clr-namespace:DigiKalaMobileApp.Pages.Views"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             x:Class="DigiKalaMobileApp.Pages.MainPage"
+             FlowDirection="RightToLeft"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{StaticResource PrimaryBgColor}">
+    <!--Start BindingContext-->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    <!--End BindingContext-->
+
+    <!--Start Page Content-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--Start Top Bar-->
+            <Grid Grid.Row="0"
+                  BackgroundColor="{StaticResource BarsColor}"
+                  Padding="10, 9">
+                <!--Start Search-->
+                <pv:PancakeView BackgroundColor="{StaticResource WhiteColor}"
+                                IsClippedToBounds="True"
+                                CornerRadius="3"
+                                Padding="10, 5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Icon-->
+                        <Path Data="{StaticResource SearchIcon}"
+                              WidthRequest="22"
+                              HeightRequest="22"
+                              Aspect="Uniform"
+                              Fill="{StaticResource PrimaryColor}"
+                              Margin="15, 0, 0, 0"
+                              VerticalOptions="Center" />
+
+                        <!--Placeholder-->
+                        <Label Grid.Column="1"
+                               Text="جستجو کالا، گروه، برند و..."
+                               TextColor="{StaticResource PrimaryColor}"
+                               FontSize="12"
+                               FontFamily="FarCasablanca"
+                               Margin="1"
+                               VerticalOptions="Center" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenSearchPageCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </pv:PancakeView>
+                <!--End Search-->
+            </Grid>
+            <!--End Top Bar-->
+
+            <!--Start Tab Content-->
+            <Grid Grid.Row="1"
+                  x:Name="GrdMainContent" />
+            <!--End Tab Content-->
+
+            <!--Start Tab Bar-->
+            <CollectionView Grid.Row="2"
+                            SelectionMode="Single"
+                            HeightRequest="60"
+                            ItemsSource="{Binding MenuItems}"
+                            SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
+                            x:Name="CvMenu"
+                            SelectionChanged="CvMenu_SelectionChanged">
+                <!--Items Layout-->
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="4"
+                                     HorizontalItemSpacing="0"
+                                     VerticalItemSpacing="0" />
+                </CollectionView.ItemsLayout>
+
+                <!--Item Template-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid VerticalOptions="FillAndExpand"
+                              HorizontalOptions="FillAndExpand"
+                              BackgroundColor="{StaticResource BarsColor}"
+                              HeightRequest="60">
+                            <StackLayout VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         Spacing="5">
+
+                                <!--Icon-->
+                                <Path Data="{Binding Icon}"
+                                      Aspect="Uniform"
+                                      WidthRequest="20"
+                                      HeightRequest="20"
+                                      HorizontalOptions="Center"
+                                      Fill="{StaticResource PrimaryTextColor}"
+                                      x:Name="PthMenuItemIcon" />
+
+                                <!--Title-->
+                                <Label Text="{Binding Title}"
+                                       FontFamily="VazirFD"
+                                       FontSize="12"
+                                       HorizontalOptions="Center"
+                                       TextColor="{StaticResource PrimaryTextColor}"
+                                       x:Name="LblMenuItemTitle" />
+                            </StackLayout>
+
+                            <!--Visual State Manager-->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <!--Normal-->
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter TargetName="PthMenuItemIcon"
+                                                    Property="Path.Fill"
+                                                    Value="{StaticResource PrimaryTextColor}" />
+                                            <Setter TargetName="LblMenuItemTitle"
+                                                    Property="Label.TextColor"
+                                                    Value="{StaticResource PrimaryTextColor}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <!--Selected-->
+                                    <VisualState x:Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource BarsColor}" />
+                                            <Setter TargetName="PthMenuItemIcon"
+                                                    Property="Path.Fill"
+                                                    Value="{StaticResource MenuItemSelectedColor}" />
+                                            <Setter TargetName="LblMenuItemTitle"
+                                                    Property="Label.TextColor"
+                                                    Value="{StaticResource MenuItemSelectedColor}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!--End Tab Bar-->
+
+            <!--Start Loading View-->
+            <Grid Grid.Row="0"
+                  Grid.RowSpan="3"
+                  BackgroundColor="{StaticResource LoadingBgColor}"
+                  IsVisible="{Binding ShowLoading}">
+                <pv:PancakeView BackgroundColor="{StaticResource WhiteColor}"
+                                CornerRadius="10"
+                                IsClippedToBounds="True"
+                                WidthRequest="315"
+                                HeightRequest="150"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="CenterAndExpand">
+                    <Grid>
+                        <lottie:AnimationView Animation="loading.json"
+                                              AutoPlay="True"
+                                              AnimationSource="AssetOrBundle"
+                                              RepeatMode="Infinite"
+                                              VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </pv:PancakeView>
+            </Grid>
+            <!--Start Loading View-->
+        </Grid>
+    </ContentPage.Content>
+    <!--End Page Content-->
+</ContentPage>

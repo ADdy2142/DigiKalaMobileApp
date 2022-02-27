@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             x:Class="DigiKalaMobileApp.Pages.Views.HomeView"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}">
+    <!--Start BindingContext-->
+    <ContentView.BindingContext>
+        <vm:HomeViewModel />
+    </ContentView.BindingContext>
+    <!--End BindingContext-->
+
+    <!--Start Content-->
+    <ContentView.Content>
+        <ScrollView HorizontalScrollBarVisibility="Never">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="110" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!--Start Banners CarouselView-->
+                <controls:CarouselViewControl Grid.Row="0"
+                                              ShowIndicators="True"
+                                              IndicatorsShape="Circle"
+                                              HorizontalIndicatorsPosition="Bottom"
+                                              VerticalIndicatorsPosition="Left"
+                                              IndicatorsTintColor="{StaticResource BarsColor}"
+                                              CurrentPageIndicatorTintColor="{StaticResource PrimaryColor}"
+                                              InfiniteScrolling="True"
+                                              Orientation="Horizontal"
+                                              InterPageSpacing="20"
+                                              HorizontalOptions="FillAndExpand"
+                                              VerticalOptions="FillAndExpand"
+                                              AnimateTransition="True"
+                                              ItemsSource="{Binding Banners}"
+                                              Margin="10, 0, 10, 10"
+                                              AutoplayInterval="5"
+                                              FlowDirection="LeftToRight">
+                    <controls:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand"
+                                  BackgroundColor="Transparent">
+                                <pv:PancakeView CornerRadius="10"
+                                                IsClippedToBounds="True">
+                                    <Grid VerticalOptions="FillAndExpand"
+                                          HorizontalOptions="FillAndExpand">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="Fill" />
+                                        <BoxView BackgroundColor="#77000000" />
+                                    </Grid>
+                                </pv:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </controls:CarouselViewControl.ItemTemplate>
+                </controls:CarouselViewControl>
+                <!--End Banners CarouselView-->
+
+                <StackLayout Grid.Row="1">
+                    <!--Start Top Discount-->
+                    <StackLayout Spacing="10"
+                                 Padding="10"
+                                 BackgroundColor="{StaticResource PrimaryColor}">
+                        <!--Title-->
+                        <Label Text="تا تخفیف هست بگیر"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               FontFamily="VazirBoldFD"
+                               TextColor="{StaticResource WhiteColor}" />
+
+                        <!--Products-->
+                        <ScrollView VerticalScrollBarVisibility="Never">
+                            <!--Start Products-->
+                            <CollectionView ItemsSource="{Binding TopDiscountProducts}"
+                                            HeightRequest="180"
+                                            SelectionMode="Single">
+                                <!--Items Layout-->
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal"
+                                                       ItemSpacing="10" />
+                                </CollectionView.ItemsLayout>
+
+                                <!--Item Template-->
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <pv:PancakeView WidthRequest="130"
+                                                        CornerRadius="5"
+                                                        BackgroundColor="{StaticResource WhiteColor}"
+                                                        IsClippedToBounds="True">
+                                            <Grid>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="75" />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+
+                                                    <!--Image-->
+                                                    <Image Grid.Row="0"
+                                                           VerticalOptions="FillAndExpand"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           Source="{Binding ImageUrl}"
+                                                           Aspect="AspectFit" />
+
+                                                    <Grid Grid.Row="1"
+                                                          Padding="5">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+
+                                                        <StackLayout Grid.Row="0"
+                                                                     Spacing="3">
+                                                            <!--Title-->
+                                                            <Label Text="{Binding Title}"
+                                                                   FontSize="12"
+                                                                   FontFamily="VazirFD"
+                                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                                   HorizontalOptions="Fill"
+                                                                   LineBreakMode="TailTruncation"
+                                                                   MaxLines="1" />
+
+                                                            <Grid HorizontalOptions="End">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition />
+                                                                    <RowDefinition />
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <!--Final Price-->
+                                                                <Label Grid.Row="0"
+                                                                       Grid.Column="0"
+                                                                       Text="{Binding FinalPrice, StringFormat='{0:N0}'}"
+                                                                       FontSize="12"
+                                                                       FontFamily="VazirBoldFD"
+                                                                       TextColor="{StaticResource PrimaryTextColor}"
+                                                                       FontAttributes="Bold"
+                                                                       Margin="2, 0, 0, 0" />
+
+                                                                <Label Grid.Row="0"
+                                                                       Grid.Column="1"
+                                                                       Text="تومان"
+                                                                       FontSize="12"
+                                                                       FontFamily="VazirFD"
+                                                                       TextColor="{StaticResource PrimaryTextColor}" />
+
+                                                                <!--Price-->
+                                                                <Label Grid.Row="1"
+                                                                       Grid.Column="0"
+                                                                       Text="{Binding Price, StringFormat='{0:N0}'}"
+                                                                       FontSize="12"
+                                                                       FontFamily="VazirFD"
+                                                                       TextColor="{StaticResource PlaceholderColor}"
+                                                                       TextDecorations="Strikethrough" />
+                                                            </Grid>
+                                                        </StackLayout>
+
+                                                        <!--Discount End Date-->
+                                                        <Label Grid.Row="1"
+                                                               VerticalOptions="End"
+                                                               HorizontalOptions="End"
+                                                               TextColor="{StaticResource PlaceholderColor}"
+                                                               Text="{Binding DiscountEndDate, Converter={StaticResource DiscountEndDateConverter}}"
+                                                               FontSize="10"
+                                                               FontFamily="Vazir"
+                                                               x:Name="LblDiscountEndTime" />
+                                                    </Grid>
+                                                </Grid>
+
+                                                <!--Discount-->
+                                                <pv:PancakeView VerticalOptions="Start"
+                                                                HorizontalOptions="End"
+                                                                HeightRequest="20"
+                                                                Padding="8, 0"
+                                                                BackgroundColor="{StaticResource PrimaryColor}"
+                                                                CornerRadius="10"
+                                                                Margin="5">
+                                                    <Label Text="{Binding Discount, StringFormat='%{0} تخفیف'}"
+                                                           FontSize="10"
+                                                           TextColor="{StaticResource WhiteColor}"
+                                                           FontFamily="VazirFD"
+                                                           Margin="0, 2, 0, 0" />
+                                                </pv:PancakeView>
+                                            </Grid>
+
+                                            <!--Visual State Manager-->
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Selected">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor"
+                                                                    Value="{StaticResource WhiteColor}" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </pv:PancakeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                                <!--Footer-->
+                                <CollectionView.Footer>
+                                    <!--Start Show More-->
+                                    <Grid VerticalOptions="FillAndExpand">
+                                        <pv:PancakeView BackgroundColor="{StaticResource WhiteColor}"
+                                                        CornerRadius="5"
+                                                        IsClippedToBounds="True"
+                                                        VerticalOptions="FillAndExpand"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        WidthRequest="75"
+                                                        Margin="10, 0, 0, 0">
+                                            <StackLayout Spacing="5"
+                                                         VerticalOptions="CenterAndExpand"
+                                                         HorizontalOptions="CenterAndExpand">
+                                                <!--Icon-->
+                                                <pv:PancakeView WidthRequest="32"
+                                                                HeightRequest="32"
+                                                                CornerRadius="16"
+                                                                BackgroundColor="Transparent"
+                                                                HorizontalOptions="CenterAndExpand">
+                                                    <pv:PancakeView.Border>
+                                                        <pv:Border Color="{StaticResource PrimaryColor}"
+                                                                   Thickness="2" />
+                                                    </pv:PancakeView.Border>
+
+                                                    <Path Data="{StaticResource AngleLeftIcon}"
+                                                          Fill="{StaticResource PrimaryColor}"
+                                                          WidthRequest="18"
+                                                          HeightRequest="18"
+                                                          VerticalOptions="CenterAndExpand"
+                                                          HorizontalOptions="CenterAndExpand"
+                                                          Aspect="Uniform" />
+                                                </pv:PancakeView>
+
+                                                <!--Text-->
+                                                <Label Text="مشاهده همه"
+                                                       FontSize="10"
+                                                       FontFamily="VazirFD"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       TextColor="{StaticResource PrimaryTextColor}" />
+                                            </StackLayout>
+                                        </pv:PancakeView>
+                                    </Grid>
+                                    <!--End Show More-->
+                                </CollectionView.Footer>
+                            </CollectionView>
+                            <!--End Products-->
+                        </ScrollView>
+                    </StackLayout>
+                    <!--End Top Discount-->
+
+                    <!--Start Brand Ads-->
+                    <Grid VerticalOptions="Start"
+                          HeightRequest="230"
+                          Margin="0, 15">
+                        <CollectionView ItemsSource="{Binding BrandAds}"
+                                        SelectionMode="Single">
+                            <!--Items Layout-->
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical"
+                                                 Span="2"
+                                                 HorizontalItemSpacing="0"
+                                                 VerticalItemSpacing="0" />
+                            </CollectionView.ItemsLayout>
+
+                            <!--Item Template-->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="10, 0, 7.5, 0">
+                                        <pv:PancakeView CornerRadius="10"
+                                                        HeightRequest="100"
+                                                        Margin="0, 0, 0, 15">
+                                            <!--Shadow-->
+                                            <pv:PancakeView.Shadow>
+                                                <pv:DropShadow BlurRadius="10"
+                                                               Color="{StaticResource BlackColor}"
+                                                               Offset="0, 3"
+                                                               Opacity="0.3" />
+                                            </pv:PancakeView.Shadow>
+
+                                            <Grid>
+                                                <Image Source="{Binding ImageUrl}"
+                                                       Aspect="AspectFill" />
+                                            </Grid>
+                                        </pv:PancakeView>
+
+                                        <!--Visual State Manager-->
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup Name="CommonStates">
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="Transparent" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                    <!--End Brand Ads-->
+
+                    <!--Start Most Visited Products-->
+                    <StackLayout Padding="10, 0, 10, 20"
+                                 Spacing="10">
+                        <!--Title-->
+                        <Label Text="محصولات پربازدید اخیر"
+                               TextColor="{StaticResource PrimaryTextColor}"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               FontFamily="VazirBoldFD" />
+
+                        <!--Start Products-->
+                        <CollectionView ItemsSource="{Binding MostVisitedProducts}"
+                                        SelectionMode="Single"
+                                        HeightRequest="240">
+                            <!--Items Layout-->
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Horizontal"
+                                                 Span="4"
+                                                 HorizontalItemSpacing="0"
+                                                 VerticalItemSpacing="0" />
+                            </CollectionView.ItemsLayout>
+
+                            <!--Item Template-->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid WidthRequest="324"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Product Image-->
+                                        <Image Grid.Column="0"
+                                               Source="{Binding ImageUrl}"
+                                               Aspect="AspectFit"
+                                               WidthRequest="50"
+                                               HeightRequest="50"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="End" />
+
+                                        <!--Title-->
+                                        <StackLayout Grid.Column="1"
+                                                     Orientation="Horizontal"
+                                                     Spacing="3"
+                                                     VerticalOptions="Start">
+                                            <!--Index-->
+                                            <Label Text="{Binding Index, StringFormat='.{0}'}"
+                                                   FontSize="14"
+                                                   FontAttributes="Bold"
+                                                   FontFamily="VazirBoldFD"
+                                                   TextColor="{StaticResource PrimaryColor}"
+                                                   VerticalOptions="Center" />
+
+                                            <!--Text-->
+                                            <Label Text="{Binding Title}"
+                                                   FontSize="10"
+                                                   FontFamily="VazirFD"
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   VerticalOptions="Center" />
+                                        </StackLayout>
+
+                                        <!--Visit Count-->
+                                        <StackLayout Grid.Column="2"
+                                                     Spacing="3"
+                                                     VerticalOptions="Center">
+                                            <!--Count-->
+                                            <Label Text="{Binding Visit, StringFormat='{0:N0}'}"
+                                                   FontSize="14"
+                                                   FontAttributes="Bold"
+                                                   FontFamily="VazirBoldFD"
+                                                   TextColor="{StaticResource PrimaryColor}"
+                                                   HorizontalOptions="Center" />
+
+                                            <!--Text-->
+                                            <Label Text="بازدید"
+                                                   FontSize="10"
+                                                   FontFamily="VazirFD"
+                                                   TextColor="{StaticResource PrimaryTextColor}"
+                                                   HorizontalOptions="Center" />
+                                        </StackLayout>
+
+                                        <!--Visual State Manager-->
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup Name="CommonStates">
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="Transparent" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <!--End Products-->
+                    </StackLayout>
+                    <!--End Most Visited Products-->
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentView.Content>
+    <!--End Content-->
+</ContentView>

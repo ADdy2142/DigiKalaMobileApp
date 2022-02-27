@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="DigiKalaMobileApp.Pages.ListsPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{StaticResource PrimaryBgColor}"
+             FlowDirection="RightToLeft"
+             Title="لیست ها">
+    <!--Start Binding Context-->
+    <ContentPage.BindingContext>
+        <vm:ListsVeiwModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    <!--End Binding Context-->
+
+    <!--Start Page Content-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Start Navigation-->
+            <Grid Grid.Row="0"
+                  Padding="20, 0"
+                  BackgroundColor="{StaticResource BarsColor}">
+                <!--Title-->
+                <Label Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}, Path=Title}"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       FontFamily="VazirBoldFD"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       VerticalOptions="CenterAndExpand" />
+
+                <!--Back Icon-->
+                <Path Data="{StaticResource NavigationBackIcon}"
+                      Fill="{StaticResource PrimaryTextColor}"
+                      WidthRequest="20"
+                      HeightRequest="20"
+                      VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="EndAndExpand"
+                      Aspect="Uniform">
+                    <Path.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Path.GestureRecognizers>
+                </Path>
+            </Grid>
+            <!--End Navigation-->
+
+            <!--Start Main Content-->
+            <Grid Grid.Row="1"
+                  Margin="10, 15">
+                <xct:TabView TabIndicatorPlacement="Top">
+                    <xct:TabViewItem HeightRequest="40">
+                        <!--Control Template-->
+                        <xct:TabViewItem.ControlTemplate>
+                            <ControlTemplate>
+                                <Grid VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand">
+                                    <!--Title-->
+                                    <Label Text="علاقه مندی ها"
+                                           FontSize="12"
+                                           FontFamily="VazirFD"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand">
+                                        <!--Style-->
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="TextColor"
+                                                        Value="{StaticResource PrimaryTextColor}" />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type xct:TabViewItem}}, Path=IsSelected}"
+                                                                 Value="True">
+                                                        <Setter Property="TextColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+
+                                    <!--Indicator-->
+                                    <pv:PancakeView VerticalOptions="EndAndExpand"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HeightRequest="3"
+                                                    CornerRadius="2, 2, 0, 0">
+                                        <!--Style-->
+                                        <pv:PancakeView.Style>
+                                            <Style TargetType="pv:PancakeView">
+                                                <Setter Property="BackgroundColor"
+                                                        Value="Transparent" />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="pv:PancakeView"
+                                                                 Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type xct:TabViewItem}}, Path=IsSelected}"
+                                                                 Value="True">
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </pv:PancakeView.Style>
+                                    </pv:PancakeView>
+                                </Grid>
+                            </ControlTemplate>
+                        </xct:TabViewItem.ControlTemplate>
+
+                        <!--Content-->
+                        <xct:TabViewItem.Content>
+                            <Grid VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand">
+                                <Label Text="علاقه مندی ها"
+                                       TextColor="{StaticResource PrimaryTextColor}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       FontFamily="VazirBoldFD"
+                                       VerticalOptions="CenterAndExpand"
+                                       HorizontalOptions="CenterAndExpand" />
+                            </Grid>
+                        </xct:TabViewItem.Content>
+                    </xct:TabViewItem>
+                    <xct:TabViewItem HeightRequest="40">
+                        <!--Control Template-->
+                        <xct:TabViewItem.ControlTemplate>
+                            <ControlTemplate>
+                                <Grid VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand">
+                                    <!--Title-->
+                                    <Label Text="لیست های عمومی"
+                                           FontSize="12"
+                                           FontFamily="VazirFD"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand">
+                                        <!--Style-->
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="TextColor"
+                                                        Value="{StaticResource PrimaryTextColor}" />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type xct:TabViewItem}}, Path=IsSelected}"
+                                                                 Value="True">
+                                                        <Setter Property="TextColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+
+                                    <!--Indicator-->
+                                    <pv:PancakeView VerticalOptions="EndAndExpand"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HeightRequest="3"
+                                                    CornerRadius="2, 2, 0, 0">
+                                        <!--Style-->
+                                        <pv:PancakeView.Style>
+                                            <Style TargetType="pv:PancakeView">
+                                                <Setter Property="BackgroundColor"
+                                                        Value="Transparent" />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="pv:PancakeView"
+                                                                 Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type xct:TabViewItem}}, Path=IsSelected}"
+                                                                 Value="True">
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </pv:PancakeView.Style>
+                                    </pv:PancakeView>
+                                </Grid>
+                            </ControlTemplate>
+                        </xct:TabViewItem.ControlTemplate>
+
+                        <!--Content-->
+                        <xct:TabViewItem.Content>
+                            <Grid VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand">
+                                <Label Text="لیست های عمومی"
+                                       TextColor="{StaticResource PrimaryTextColor}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       FontFamily="VazirBoldFD"
+                                       VerticalOptions="CenterAndExpand"
+                                       HorizontalOptions="CenterAndExpand" />
+                            </Grid>
+                        </xct:TabViewItem.Content>
+                    </xct:TabViewItem>
+                    <xct:TabViewItem HeightRequest="40">
+                        <!--Control Template-->
+                        <xct:TabViewItem.ControlTemplate>
+                            <ControlTemplate>
+                                <Grid VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand">
+                                    <!--Title-->
+                                    <Label Text="اطلاع رسانی ها"
+                                           FontSize="12"
+                                           FontFamily="VazirFD"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand">
+                                        <!--Style-->
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="TextColor"
+                                                        Value="{StaticResource PrimaryTextColor}" />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type xct:TabViewItem}}, Path=IsSelected}"
+                                                                 Value="True">
+                                                        <Setter Property="TextColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+
+                                    <!--Indicator-->
+                                    <pv:PancakeView VerticalOptions="EndAndExpand"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HeightRequest="3"
+                                                    CornerRadius="2, 2, 0, 0">
+                                        <!--Style-->
+                                        <pv:PancakeView.Style>
+                                            <Style TargetType="pv:PancakeView">
+                                                <Setter Property="BackgroundColor"
+                                                        Value="Transparent" />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="pv:PancakeView"
+                                                                 Binding="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type xct:TabViewItem}}, Path=IsSelected}"
+                                                                 Value="True">
+                                                        <Setter Property="BackgroundColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </pv:PancakeView.Style>
+                                    </pv:PancakeView>
+                                </Grid>
+                            </ControlTemplate>
+                        </xct:TabViewItem.ControlTemplate>
+
+                        <!--Content-->
+                        <xct:TabViewItem.Content>
+                            <Grid VerticalOptions="FillAndExpand"
+                                  HorizontalOptions="FillAndExpand">
+                                <Label Text="اطلاع رسانی ها"
+                                       TextColor="{StaticResource PrimaryTextColor}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       FontFamily="VazirBoldFD"
+                                       VerticalOptions="CenterAndExpand"
+                                       HorizontalOptions="CenterAndExpand" />
+                            </Grid>
+                        </xct:TabViewItem.Content>
+                    </xct:TabViewItem>
+                </xct:TabView>
+            </Grid>
+            <!--End Main Content-->
+        </Grid>
+    </ContentPage.Content>
+    <!--End Page Content-->
+</ContentPage>

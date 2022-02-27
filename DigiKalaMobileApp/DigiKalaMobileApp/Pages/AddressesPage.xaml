@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             x:Class="DigiKalaMobileApp.Pages.AddressesPage"
+             NavigationPage.HasNavigationBar="False"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}"
+             Title="آدرس ها">
+    <!--Start Binding Context-->
+    <ContentPage.BindingContext>
+        <vm:AddressesViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    <!--End Binding Context-->
+
+    <!--Start Page Content-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Start Navigation-->
+            <Grid Grid.Row="0"
+                  Padding="20, 0"
+                  BackgroundColor="{StaticResource BarsColor}">
+                <!--Title-->
+                <Label Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}, Path=Title}"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       FontFamily="VazirBoldFD"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       VerticalOptions="CenterAndExpand" />
+
+                <!--Back Icon-->
+                <Path Data="{StaticResource NavigationBackIcon}"
+                      Fill="{StaticResource PrimaryTextColor}"
+                      WidthRequest="20"
+                      HeightRequest="20"
+                      VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="EndAndExpand"
+                      Aspect="Uniform">
+                    <Path.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Path.GestureRecognizers>
+                </Path>
+            </Grid>
+            <!--End Navigation-->
+
+            <!--Start Main Content-->
+            <Grid Grid.Row="1"
+                  Margin="10, 15">
+                <ScrollView HorizontalScrollBarVisibility="Never"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                    <StackLayout Spacing="15">
+                        <!--Location-->
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <!--Icon-->
+                            <Path Data="{StaticResource LocationIcon}"
+                                  WidthRequest="15"
+                                  HeightRequest="15"
+                                  VerticalOptions="CenterAndExpand"
+                                  Aspect="Uniform"
+                                  Fill="{StaticResource PrimaryColor}" />
+
+                            <!--Title-->
+                            <Label Text="نهبندان، بلوار استقلال، استقلال 24، پلاک ندارد"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   FontFamily="VazirBoldFD"
+                                   TextColor="{StaticResource PrimaryColor}" />
+                        </StackLayout>
+
+                        <!--Start Location Info-->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--Info-->
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <StackLayout Grid.Row="0"
+                                             Spacing="5">
+                                    <!--Phone-->
+                                    <StackLayout Orientation="Horizontal"
+                                                 Spacing="10">
+                                        <!--Icon-->
+                                        <Path Data="{StaticResource PhoneIcon}"
+                                              WidthRequest="15"
+                                              HeightRequest="15"
+                                              VerticalOptions="CenterAndExpand"
+                                              Aspect="Uniform"
+                                              Fill="{StaticResource PrimaryTextColor}" />
+
+                                        <!--Title-->
+                                        <Label Text="09156699886"
+                                               FontSize="12"
+                                               FontFamily="VazirFD"
+                                               TextColor="{StaticResource PrimaryTextColor}" />
+                                    </StackLayout>
+
+                                    <!--Postal Code-->
+                                    <StackLayout Orientation="Horizontal"
+                                                 Spacing="10">
+                                        <!--Icon-->
+                                        <Path Data="{StaticResource EnvelopeIcon}"
+                                              WidthRequest="15"
+                                              HeightRequest="15"
+                                              VerticalOptions="CenterAndExpand"
+                                              Aspect="Uniform"
+                                              Fill="{StaticResource PrimaryTextColor}" />
+
+                                        <!--Title-->
+                                        <Label Text="975210234"
+                                               FontSize="12"
+                                               FontFamily="VazirFD"
+                                               TextColor="{StaticResource PrimaryTextColor}" />
+                                    </StackLayout>
+
+                                    <!--Email-->
+                                    <StackLayout Orientation="Horizontal"
+                                                 Spacing="10">
+                                        <!--Icon-->
+                                        <Path Data="{StaticResource AtIcon}"
+                                              WidthRequest="15"
+                                              HeightRequest="15"
+                                              VerticalOptions="CenterAndExpand"
+                                              Aspect="Uniform"
+                                              Fill="{StaticResource PrimaryTextColor}" />
+
+                                        <!--Title-->
+                                        <Label Text="adelbakhshi78@yahoo.com"
+                                               FontSize="12"
+                                               FontFamily="Vazir"
+                                               TextColor="{StaticResource PrimaryTextColor}" />
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <!--Start Action Buttons-->
+                                <StackLayout Grid.Row="1"
+                                             Orientation="Horizontal"
+                                             Spacing="5"
+                                             VerticalOptions="EndAndExpand"
+                                             HorizontalOptions="FillAndExpand">
+                                    <!--Edit-->
+                                    <Button Text="ویرایش"
+                                            BackgroundColor="{StaticResource WarningColor}"
+                                            CornerRadius="5"
+                                            Padding="10, 6"
+                                            FontSize="12"
+                                            FontFamily="VazirFD"
+                                            WidthRequest="55"
+                                            HeightRequest="31"
+                                            TextColor="{StaticResource WhiteColor}" />
+
+                                    <!--Delete-->
+                                    <Button Text="حذف"
+                                            BackgroundColor="{StaticResource PrimaryColor}"
+                                            CornerRadius="5"
+                                            Padding="10, 6"
+                                            FontSize="12"
+                                            FontFamily="VazirFD"
+                                            WidthRequest="55"
+                                            HeightRequest="31"
+                                            TextColor="{StaticResource WhiteColor}" />
+                                </StackLayout>
+                                <!--End Action Buttons-->
+                            </Grid>
+
+                            <!--Map-->
+                            <Grid Grid.Column="1"
+                                  WidthRequest="111"
+                                  HeightRequest="111"
+                                  Margin="10, 0, 15, 0">
+                                <pv:PancakeView CornerRadius="5"
+                                                IsClippedToBounds="True"
+                                                VerticalOptions="FillAndExpand"
+                                                HorizontalOptions="FillAndExpand">
+                                    <Image VerticalOptions="FillAndExpand"
+                                           HorizontalOptions="FillAndExpand"
+                                           Source="map_image.png"
+                                           Aspect="AspectFill" />
+                                </pv:PancakeView>
+                            </Grid>
+                        </Grid>
+                        <!--End Location Info-->
+                    </StackLayout>
+                </ScrollView>
+
+                <!--Start Add Button-->
+                <pv:PancakeView VerticalOptions="EndAndExpand"
+                                HorizontalOptions="EndAndExpand"
+                                WidthRequest="50"
+                                HeightRequest="50"
+                                CornerRadius="25"
+                                BackgroundColor="{StaticResource PrimaryColor}"
+                                IsClippedToBounds="True"
+                                Margin="10, 0, 0, 5">
+                    <!--Icon-->
+                    <Path Data="{StaticResource PlusIcon}"
+                          Aspect="Uniform"
+                          WidthRequest="20"
+                          HeightRequest="20"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalOptions="CenterAndExpand"
+                          Fill="{StaticResource WhiteColor}" />
+                </pv:PancakeView>
+                <!--End Add Button-->
+            </Grid>
+            <!--End Main Content-->
+        </Grid>
+    </ContentPage.Content>
+    <!--End Page Content-->
+</ContentPage>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="DigiKalaMobileApp.Pages.Views.ShoppingCartView"
+             NavigationPage.HasNavigationBar="False"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}">
+    <ContentView.Content>
+        <StackLayout Padding="10, 15">
+            <pv:PancakeView CornerRadius="15"
+                            Padding="10"
+                            IsClippedToBounds="True"
+                            BackgroundColor="{StaticResource WhiteColor}">
+                <!--Shadow-->
+                <pv:PancakeView.Shadow>
+                    <pv:DropShadow Offset="0, 3"
+                                   Opacity="0.3"
+                                   BlurRadius="10"
+                                   Color="{StaticResource BlackColor}" />
+                </pv:PancakeView.Shadow>
+
+                <StackLayout Spacing="20">
+                    <Label HorizontalTextAlignment="Center"
+                           Text="سبد خرید شما خالی است."
+                           TextColor="{StaticResource PrimaryTextColor}"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           FontFamily="VazirBoldFD" />
+                    <Image HorizontalOptions="CenterAndExpand"
+                           WidthRequest="80"
+                           HeightRequest="80"
+                           Aspect="AspectFill"
+                           Source="empty_cart_icon.png" />
+                    <Label Text="با اولین خرید تا 80 درصد تخفیف بگیرید."
+                           HorizontalTextAlignment="Center"
+                           TextColor="{StaticResource PrimaryColor}"
+                           FontFamily="VazirBoldFD"
+                           FontSize="12"
+                           FontAttributes="Bold" />
+                </StackLayout>
+            </pv:PancakeView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

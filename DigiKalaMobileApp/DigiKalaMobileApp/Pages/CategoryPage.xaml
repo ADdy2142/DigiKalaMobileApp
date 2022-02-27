@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="DigiKalaMobileApp.Pages.CategoryPage"
+             NavigationPage.HasNavigationBar="False"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}">
+    <!--Start Binding Context-->
+    <ContentPage.BindingContext>
+        <vm:CategoryViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    <!--End Binding Context-->
+
+    <!--Start Page Content-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Start Navigation-->
+            <Grid Grid.Row="0"
+                  Padding="10, 9"
+                  BackgroundColor="{StaticResource BarsColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!--Start Search-->
+                <pv:PancakeView Grid.Column="0"
+                                BackgroundColor="{StaticResource WhiteColor}"
+                                IsClippedToBounds="True"
+                                CornerRadius="3"
+                                Padding="10, 5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Icon-->
+                        <Path Data="{StaticResource SearchIcon}"
+                              WidthRequest="22"
+                              HeightRequest="22"
+                              Aspect="Uniform"
+                              Fill="{StaticResource PrimaryColor}"
+                              Margin="15, 0, 0, 0"
+                              VerticalOptions="Center" />
+
+                        <!--Placeholder-->
+                        <Label Grid.Column="1"
+                               Text="جستجو کالا، گروه، برند و..."
+                               TextColor="{StaticResource PrimaryColor}"
+                               FontSize="12"
+                               FontFamily="FarCasablanca"
+                               Margin="1"
+                               VerticalOptions="Center" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenSearchPageCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </pv:PancakeView>
+                <!--End Search-->
+
+                <!--Back Icon-->
+                <Path Grid.Column="1"
+                      Data="{StaticResource NavigationBackIcon}"
+                      Fill="{StaticResource PrimaryTextColor}"
+                      WidthRequest="20"
+                      HeightRequest="20"
+                      VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="EndAndExpand"
+                      Aspect="Uniform"
+                      Margin="0, 0, 20, 0">
+                    <Path.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Path.GestureRecognizers>
+                </Path>
+            </Grid>
+            <!--End Navigation-->
+
+            <!--Start Main Content-->
+            <Grid Grid.Row="1"
+                  Margin="10, 15">
+                <ScrollView HorizontalScrollBarVisibility="Never"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                    <CollectionView SelectionMode="Single"
+                                    ItemsSource="{Binding Products}"
+                                    SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                                    SelectionChangedCommand="{Binding OpenProductDetailsPageCommand}">
+                        <!--Items Layout-->
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="7" />
+                        </CollectionView.ItemsLayout>
+
+                        <!--Item Template-->
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HeightRequest="70"
+                                      HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--Product Image-->
+                                    <Grid Grid.Column="0"
+                                          Margin="5, 0, 0, 0">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="AspectFit"
+                                               VerticalOptions="FillAndExpand"
+                                               HorizontalOptions="FillAndExpand" />
+                                    </Grid>
+
+                                    <!--Start Product Info-->
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <!--Info-->
+                                        <StackLayout Grid.Row="0"
+                                                     Spacing="5">
+                                            <!--Title-->
+                                            <Label Text="{Binding Title}"
+                                                   FontSize="12"
+                                                   FontFamily="VazirFD">
+                                                <!--Style-->
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="TextColor"
+                                                                Value="{StaticResource PrimaryColor}" />
+
+                                                        <!--Triggers-->
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Label"
+                                                                         Binding="{Binding HasQty}"
+                                                                         Value="False">
+                                                                <Setter Property="TextColor"
+                                                                        Value="{StaticResource PlaceholderColor}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+
+                                            <!--Start Price-->
+                                            <StackLayout Orientation="Horizontal">
+                                                <!--Price-->
+                                                <Label Text="{Binding Price, StringFormat='{0:N0}'}"
+                                                       FontSize="12"
+                                                       FontFamily="VazirFD"
+                                                       TextColor="{StaticResource PlaceholderColor}"
+                                                       Margin="5, 0, 0, 0"
+                                                       TextDecorations="Strikethrough">
+                                                    <!--Style-->
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="IsVisible"
+                                                                    Value="{Binding HasDiscount}" />
+
+                                                            <!--Triggers-->
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding HasQty}"
+                                                                             Value="False">
+                                                                    <Setter Property="IsVisible"
+                                                                            Value="False" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+
+                                                <!--Final Price-->
+                                                <Label Text="{Binding FinalPrice, StringFormat='{0:N0}'}"
+                                                       FontSize="12"
+                                                       FontFamily="VazirFD"
+                                                       Margin="3, 0, 0, 0">
+                                                    <!--Style-->
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="TextColor"
+                                                                    Value="{StaticResource PrimaryTextColor}" />
+
+                                                            <!--Triggers-->
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding HasDiscount}"
+                                                                             Value="True">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="{StaticResource PrimaryColor}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding HasQty}"
+                                                                             Value="False">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="{StaticResource PlaceholderColor}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+
+                                                <!--Unit Price-->
+                                                <Label Text="تومان"
+                                                       FontSize="12"
+                                                       FontFamily="VazirFD">
+                                                    <!--Style-->
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="TextColor"
+                                                                    Value="{StaticResource PrimaryTextColor}" />
+
+                                                            <!--Triggers-->
+                                                            <Style.Triggers>
+                                                                <DataTrigger TargetType="Label"
+                                                                             Binding="{Binding HasQty}"
+                                                                             Value="False">
+                                                                    <Setter Property="TextColor"
+                                                                            Value="{StaticResource PlaceholderColor}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </StackLayout>
+                                            <!--End Price-->
+                                        </StackLayout>
+
+                                        <!--Start Score and Visits-->
+                                        <Grid Grid.Row="1">
+                                            <StackLayout Orientation="Horizontal"
+                                                         VerticalOptions="End"
+                                                         HorizontalOptions="End"
+                                                         Spacing="30"
+                                                         Margin="0, 0, 1, 0">
+                                                <!--Start Visits-->
+                                                <StackLayout Orientation="Horizontal"
+                                                             Spacing="5">
+                                                    <!--Title-->
+                                                    <Label Text="{Binding Visit}"
+                                                           FontFamily="VazirFD"
+                                                           TextColor="{StaticResource PrimaryTextColor}"
+                                                           FontSize="12"
+                                                           VerticalOptions="Center" />
+
+                                                    <!--Icon-->
+                                                    <Path Data="{StaticResource EyeIcon}"
+                                                          Fill="{StaticResource InfoColor}"
+                                                          Aspect="Uniform"
+                                                          WidthRequest="12"
+                                                          HeightRequest="12"
+                                                          VerticalOptions="CenterAndExpand" />
+                                                </StackLayout>
+                                                <!--End Visits-->
+
+                                                <!--Start Score-->
+                                                <StackLayout Orientation="Horizontal"
+                                                             Spacing="5">
+                                                    <!--Title-->
+                                                    <Label Text="{Binding Score, StringFormat='{0:0.0}'}"
+                                                           FontFamily="VazirFD"
+                                                           TextColor="{StaticResource PrimaryTextColor}"
+                                                           FontSize="12"
+                                                           VerticalOptions="Center" />
+
+                                                    <!--Icon-->
+                                                    <Path Data="{StaticResource StarIcon}"
+                                                          Fill="{StaticResource WarningColor}"
+                                                          Aspect="Uniform"
+                                                          WidthRequest="12"
+                                                          HeightRequest="12"
+                                                          VerticalOptions="CenterAndExpand" />
+                                                </StackLayout>
+                                                <!--End Score-->
+                                            </StackLayout>
+
+                                            <!--Start Splitter-->
+                                            <BoxView VerticalOptions="End"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     HeightRequest="1"
+                                                     BackgroundColor="{StaticResource PrimaryTextColor}" />
+                                            <!--End Splitter-->
+                                        </Grid>
+                                        <!--Start Score and Visits-->
+
+                                        <!--Start Discount-->
+                                        <pv:PancakeView HeightRequest="20"
+                                                        CornerRadius="10"
+                                                        IsClippedToBounds="True"
+                                                        Padding="5, 0"
+                                                        VerticalOptions="Start"
+                                                        HorizontalOptions="End"
+                                                        BackgroundColor="{StaticResource PrimaryColor}">
+                                            <!--Style-->
+                                            <pv:PancakeView.Style>
+                                                <Style TargetType="pv:PancakeView">
+                                                    <Setter Property="IsVisible"
+                                                            Value="False" />
+
+                                                    <!--Triggers-->
+                                                    <Style.Triggers>
+                                                        <DataTrigger TargetType="pv:PancakeView"
+                                                                     Binding="{Binding HasDiscount}"
+                                                                     Value="True">
+                                                            <Setter Property="IsVisible"
+                                                                    Value="True" />
+                                                        </DataTrigger>
+
+                                                        <DataTrigger TargetType="pv:PancakeView"
+                                                                     Binding="{Binding HasQty}"
+                                                                     Value="False">
+                                                            <Setter Property="IsVisible"
+                                                                    Value="False" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </pv:PancakeView.Style>
+
+                                            <Label Text="{Binding Discount, StringFormat='{0}% تخفیف'}"
+                                                   TextColor="{StaticResource WhiteColor}"
+                                                   FontSize="10"
+                                                   FontFamily="VazirFD"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center" />
+                                        </pv:PancakeView>
+                                        <!--End Discount-->
+
+                                        <!--Start Not Available-->
+                                        <pv:PancakeView HeightRequest="20"
+                                                        CornerRadius="10"
+                                                        IsClippedToBounds="True"
+                                                        Padding="5, 0"
+                                                        VerticalOptions="Start"
+                                                        HorizontalOptions="End"
+                                                        BackgroundColor="{StaticResource PlaceholderColor}">
+                                            <!--Style-->
+                                            <pv:PancakeView.Style>
+                                                <Style TargetType="pv:PancakeView">
+                                                    <Setter Property="IsVisible"
+                                                            Value="False" />
+
+                                                    <!--Triggers-->
+                                                    <Style.Triggers>
+                                                        <DataTrigger TargetType="pv:PancakeView"
+                                                                     Binding="{Binding HasQty}"
+                                                                     Value="False">
+                                                            <Setter Property="IsVisible"
+                                                                    Value="True" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </pv:PancakeView.Style>
+
+                                            <Label Text="ناموجود"
+                                                   TextColor="{StaticResource WhiteColor}"
+                                                   FontSize="10"
+                                                   FontFamily="VazirFD"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center" />
+                                        </pv:PancakeView>
+                                        <!--End Not Available-->
+                                    </Grid>
+                                    <!--End Product Info-->
+
+                                    <!--Visual State Manager-->
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor"
+                                                            Value="{StaticResource PrimaryBgColor}" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
+            <!--End Main Content-->
+        </Grid>
+    </ContentPage.Content>
+    <!--End Page Content-->
+</ContentPage>

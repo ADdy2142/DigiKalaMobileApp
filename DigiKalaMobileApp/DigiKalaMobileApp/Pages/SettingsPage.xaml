@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             x:Class="DigiKalaMobileApp.Pages.SettingsPage"
+             NavigationPage.HasNavigationBar="False"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}"
+             Title="تنظیمات">
+    <!--Start Binding Context-->
+    <ContentPage.BindingContext>
+        <vm:SettingsViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    <!--End Binding Context-->
+
+    <!--Start Page Content-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Start Navigation-->
+            <Grid Grid.Row="0"
+                  Padding="20, 0"
+                  BackgroundColor="{StaticResource BarsColor}">
+                <!--Title-->
+                <Label Text="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPage}}, Path=Title}"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       FontFamily="VazirBoldFD"
+                       TextColor="{StaticResource PrimaryTextColor}"
+                       VerticalOptions="CenterAndExpand" />
+
+                <!--Back Icon-->
+                <Path Data="{StaticResource NavigationBackIcon}"
+                      Fill="{StaticResource PrimaryTextColor}"
+                      WidthRequest="20"
+                      HeightRequest="20"
+                      VerticalOptions="CenterAndExpand"
+                      HorizontalOptions="EndAndExpand"
+                      Aspect="Uniform">
+                    <Path.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </Path.GestureRecognizers>
+                </Path>
+            </Grid>
+            <!--End Navigation-->
+
+            <!--Start Page Content-->
+            <Grid Grid.Row="1"
+                  Margin="10, 15">
+                <ScrollView HorizontalScrollBarVisibility="Never">
+                    <StackLayout Spacing="8"
+                                 Margin="10, 15">
+                        <!--Notifications-->
+                        <pv:PancakeView Padding="10, 8"
+                                        CornerRadius="10"
+                                        BackgroundColor="{StaticResource WhiteColor}">
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Grid.Column="0"
+                                             Spacing="3">
+                                    <!--Title-->
+                                    <Label Text="اعلانات"
+                                           FontSize="12"
+                                           FontFamily="VazirFD"
+                                           TextColor="{StaticResource PrimaryTextColor}" />
+
+                                    <!--Description-->
+                                    <Label FontSize="12"
+                                           FontFamily="VazirFD"
+                                           TextColor="{StaticResource PlaceholderColor}">
+                                        <!--Style-->
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Text"
+                                                        Value="اعلانات برنامه نمایش داده نمی شود." />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding IsNotificationEnable}"
+                                                                 Value="True">
+                                                        <Setter Property="Text"
+                                                                Value="اعلانات برنامه نمایش داده می شود." />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </StackLayout>
+
+                                <Grid Grid.Column="1">
+                                    <Switch VerticalOptions="StartAndExpand"
+                                            OnColor="{StaticResource MenuItemSelectedColor}"
+                                            ThumbColor="{StaticResource WhiteColor}"
+                                            IsToggled="{Binding IsNotificationEnable, Mode=TwoWay}" />
+                                </Grid>
+                            </Grid>
+                        </pv:PancakeView>
+
+                        <!--Newsletter Membership-->
+                        <pv:PancakeView Padding="10, 8"
+                                        CornerRadius="10"
+                                        BackgroundColor="{StaticResource WhiteColor}">
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Grid.Column="0"
+                                             Spacing="3">
+                                    <!--Title-->
+                                    <Label Text="عضویت در خبرنامه"
+                                           FontSize="12"
+                                           FontFamily="VazirFD"
+                                           TextColor="{StaticResource PrimaryTextColor}" />
+
+                                    <!--Description-->
+                                    <Label FontSize="12"
+                                           FontFamily="VazirFD"
+                                           TextColor="{StaticResource PlaceholderColor}">
+                                        <!--Style-->
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Text"
+                                                        Value="برای عضویت در خبرنامه این گزینه را فعال کنید." />
+
+                                                <!--Triggers-->
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                                 Binding="{Binding IsNewsletterMembershipEnable}"
+                                                                 Value="True">
+                                                        <Setter Property="Text"
+                                                                Value="برای لغو عضویت در خبرنامه این گزینه را غیر فعال کنید." />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </StackLayout>
+
+                                <Grid Grid.Column="1">
+                                    <Switch VerticalOptions="StartAndExpand"
+                                            OnColor="{StaticResource MenuItemSelectedColor}"
+                                            ThumbColor="{StaticResource WhiteColor}"
+                                            IsToggled="{Binding IsNewsletterMembershipEnable, Mode=TwoWay}" />
+                                </Grid>
+                            </Grid>
+                        </pv:PancakeView>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+            <!--End Page Content-->
+        </Grid>
+    </ContentPage.Content>
+    <!--End Page Content-->
+</ContentPage>

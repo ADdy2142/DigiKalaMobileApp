@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:vm="clr-namespace:DigiKalaMobileApp.ViewModels"
+             xmlns:local="clr-namespace:DigiKalaMobileApp.Pages.Views"
+             x:Class="DigiKalaMobileApp.Pages.Views.CategoriesView"
+             NavigationPage.HasNavigationBar="False"
+             FlowDirection="RightToLeft"
+             BackgroundColor="{StaticResource PrimaryBgColor}"
+             x:Name="This">
+    <!--Start BindingContext-->
+    <ContentView.BindingContext>
+        <vm:CategoriesViewModel x:Name="ViewModel" />
+    </ContentView.BindingContext>
+    <!--End BindingContext-->
+
+    <!--Start Page Content-->
+    <ContentView.Content>
+        <ScrollView HorizontalScrollBarVisibility="Never"
+                    Padding="0">
+            <CollectionView ItemsSource="{Binding Categories}"
+                            SelectionMode="None"
+                            Margin="10, 15, 10, 20">
+                <!--Items Layout-->
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="15" />
+                </CollectionView.ItemsLayout>
+
+                <!--Item Template-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <local:CategoryListItemView VerticalOptions="Start"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Category="{Binding}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </ContentView.Content>
+    <!--End Page Content-->
+</ContentView>
