@@ -205,6 +205,6 @@
     <BundleResource Include="Resources\free_delivery.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon.jpg" />
+    <BundleResource Include="Resources\icon.png" />
   </ItemGroup>
 </Project>
